@@ -1,19 +1,19 @@
 // grVec2.h
-
 #ifndef GRVEC2_H
 #define GRVEC2_H
 
+#include <iostream>
 #include "../common/grTypes.h"
 
 struct grVec2
 {
     union 
     {
-		r32 vec[2]; // might get rid of this
+		r32 vec[2];
 		struct
 		{
-			r32 x;
-		    r32 y;
+            r32 x;
+            r32 y;
 		};
 	};
 
@@ -21,8 +21,7 @@ struct grVec2
 
     grVec2 ( );
     grVec2 ( r32 x_, r32 y_ ); 
-    // constructor for vector of arbitrary length from a direction @todo implement
-    // grVec2 ( r32 x_, r32 y_, r32 len );
+    grVec2 ( r32 x_, r32 y_, r32 len ); // vector in direction=[x,y] and of length=len
 
     // methods
 
@@ -33,27 +32,27 @@ struct grVec2
 
     grVec2  operator-       ( void ) const;
 
-    grVec2& operator[]      ( int i );
-    grVec2  operator[]      ( int i ) const;
+    r32& operator[]      ( int i );
+    r32  operator[]      ( int i ) const;
     
-    const grVec2& operator+ ( const grVec2& r_operand ) const;
-    const grVec2& operator- ( const grVec2& r_operand ) const;
-    const grVec2& operator* ( r32 r_operand ) const;
-    const grVec2& operator/ ( r32 r_operand ) const;
+    grVec2 const operator+ ( grVec2 const& r_operand ) const;
+    grVec2 const operator- ( grVec2 const& r_operand ) const;
+    grVec2 const operator* ( r32 r_operand ) const;
+    grVec2 const operator/ ( r32 r_operand ) const;
 
-    grVec2& operator+=      ( const grVec2& r_operand );
-    grVec2& operator-=      ( const grVec2& r_operand );
+    grVec2& operator+=      ( grVec2 const& r_operand );
+    grVec2& operator-=      ( grVec2 const& r_operand );
     grVec2& operator*=      ( r32 r_operand );
     grVec2& operator/=      ( r32 r_operand );
 };
 
-/*
-r32     len     ( grVec2& const vec );
-r32     dist    ( grVec2& const vec_a, grVec2& const vec_b );
-r32     dot     ( grVec2& const vec_a, grVec2& const vec_b );
+r32     length      ( grVec2 const& vec );
+r32     distance    ( grVec2 const& vec_a, grVec2 const& vec_b );
+r32     dot         ( grVec2 const& vec_a, grVec2 const& vec_b );
 
-grVec2& cross   ( grVec2& const vec_a, grVec2& const vec_b );
-grVec2& unit    ( grVec2& const vec );
-*/
+grVec2  unit        ( grVec2 const& vec );
+
+std::ostream & operator<<(std::ostream& out, grVec2 const& vec);
 
 #endif
+

@@ -1,15 +1,21 @@
 // grVec2.cpp
-
 #include "grVec2.h"
-#include <cmath>
 
 // constructors
 
 grVec2::grVec2 ( )
+    : x ( 0.0f )
+    , y ( 0.0f )
 { }
 
 grVec2::grVec2 ( r32 x_, r32 y_ )
-    : x ( x_ ), y ( y_ )
+    : x ( x_ )
+    , y ( y_ )
+{ }
+
+grVec2::grVec2 ( r32 x_, r32 y_, r32 len )
+    : x ( len * x_ / length( grVec2( x_, y_ ) ) )
+    , y ( len * y_ / length( grVec2( x_, y_ ) ) )
 { }
 
 // methods
@@ -45,28 +51,28 @@ r32 grVec2::operator[] ( int i ) const
 }
 
 
-grVec2 const grVec2::operator+ ( const grVec2& r_operand )
+grVec2 const grVec2::operator+ ( grVec2 const& r_operand ) const
 {
     return grVec2( x + r_operand.x, y + r_operand.y );
 }
 
-grVec2 const grVec2::operator- ( const grVec2& r_operand )
+grVec2 const grVec2::operator- ( grVec2 const& r_operand ) const
 {
     return grVec2( x - r_operand.x, y - r_operand.y );
 }
 
-grVec2 const grVec2::operator* ( r32 r_operand )
+grVec2 const grVec2::operator* ( r32 r_operand ) const
 {
     return grVec2( x * r_operand, y * r_operand );
 }
 
-grVec2 const grVec2::operator/ ( r32 r_operand )
+grVec2 const grVec2::operator/ ( r32 r_operand ) const
 {
     return grVec2( x / r_operand, y / r_operand );
 }
 
 
-grVec2& grVec2::operator+= ( const grVec2& r_operand )
+grVec2& grVec2::operator+= ( grVec2 const& r_operand )
 {
     x += r_operand.x;
     y += r_operand.y;
@@ -74,7 +80,7 @@ grVec2& grVec2::operator+= ( const grVec2& r_operand )
     return *this;
 }
 
-grVec2& grVec2::operator-= ( const grVec2& r_operand )
+grVec2& grVec2::operator-= ( grVec2 const& r_operand )
 {
     x -= r_operand.x;
     y -= r_operand.y;
@@ -82,7 +88,7 @@ grVec2& grVec2::operator-= ( const grVec2& r_operand )
     return *this;
 }
 
-r32 grVec2::operator*= ( r32 r_operand )
+grVec2& grVec2::operator*= ( r32 r_operand )
 {
     x *= r_operand;
     y *= r_operand;
@@ -90,7 +96,7 @@ r32 grVec2::operator*= ( r32 r_operand )
     return *this;
 }
 
-r32 grVec2::operator*= ( r32 r_operand )
+grVec2& grVec2::operator/= ( r32 r_operand )
 {
     x /= r_operand;
     y /= r_operand;
@@ -98,5 +104,36 @@ r32 grVec2::operator*= ( r32 r_operand )
     return *this;
 }
 
-// static
+// non-member
+
+inline r32 length ( grVec2 const& vec )
+{
+    return std::sqrt( vec.x * vec.x + vec.y * vec.y );
+}
+
+inline r32 distance ( grVec2 const& vec_a, grVec2 const& vec_b )
+{
+    r32 d_x = vec_b.x - vec_a.x;
+    r32 d_y = vec_b.y - vec_a.y;
+
+    return std::sqrt( d_x * d_x + d_y * d_y );
+}
+
+inline r32 dot ( grVec2 const& vec_a, grVec2 const& vec_b )
+{
+    return vec_a.x * vec_b.x + vec_a.y * vec_b.y;
+}
+
+inline grVec2 unit ( grVec2 const& vec_a ) // const until proven otherwise
+{
+    r32 vec_a_length = length(vec_a);
+
+    return grVec2 ( vec_a.x / vec_a_length, vec_a.y / vec_a_length );
+}
+
+std::ostream & operator<<(std::ostream& out, grVec2 const& vec)
+{
+    out << "{ " << std::to_string(vec.x) << ", " << std::to_string(vec.y) << " }";
+    return out;
+}
 
