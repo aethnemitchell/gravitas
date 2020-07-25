@@ -1,5 +1,6 @@
 // grVec2.cpp
 #include "grVec2.h"
+#include <iomanip>
 
 // constructors
 
@@ -146,6 +147,15 @@ r32 grVec2::angle ( grVec2 const& vec_a, grVec2 const& vec_b, grVec2 const& vec_
     return angle( vec_a, vec_b ) - angle( vec_b, vec_c );
 }
 
+int grVec2::orientation ( grVec2 const& vec_a, grVec2 const& vec_b, grVec2 const& vec_c )
+{
+    r32 ori = ( vec_b.y - vec_a.y ) * ( vec_c.x - vec_b.x )
+            - ( vec_b.x - vec_a.x ) * ( vec_c.y - vec_b.y );
+
+    if ( ori == 0.0 ) return 0;
+    return ori > 0.0 ? 1 : -1;
+}
+
 grVec2 grVec2::unit ( grVec2 const& vec_a )
 {
     r32 vec_a_length = length( vec_a );
@@ -154,7 +164,7 @@ grVec2 grVec2::unit ( grVec2 const& vec_a )
 
 grVec2 grVec2::rotate ( grVec2 const& vec_a, r32 angle )
 {
-    grVec2 out( vec_a.x, vec_a.y );
+    grVec2 out( vec_a );
     out.rotate( angle );
     return out;
 }
@@ -172,7 +182,7 @@ grVec2 grVec2::perp ( grVec2 const& vec_a )
 
 std::ostream & operator<<(std::ostream& out, grVec2 const& vec)
 {
-    out << "{ " << std::to_string(vec.x) << ", " << std::to_string(vec.y) << " }";
+    out << "{ " << vec.x << ", " << vec.y << " }";
     return out;
 }
 

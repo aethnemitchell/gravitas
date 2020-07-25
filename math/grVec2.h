@@ -23,8 +23,6 @@ struct grVec2
     grVec2 ( r32 x_, r32 y_ ); 
     grVec2 ( r32 x_, r32 y_, r32 len ); // vector in direction=[x,y] and of length=len
 
-    grVec2& operator= ( const grVec2& r_operand );
-
     // methods
 
     void zero   ( );
@@ -54,6 +52,7 @@ struct grVec2
     static r32     angle       ( grVec2 const& vec_a ); // from +x
     static r32     angle       ( grVec2 const& vec_a, grVec2 const& vec_b );
     static r32     angle       ( grVec2 const& vec_a, grVec2 const& vec_b, grVec2 const& vec_c );
+    static int     orientation ( grVec2 const& vec_a, grVec2 const& vec_b, grVec2 const& vec_c );
 
     static grVec2  unit        ( grVec2 const& vec_a );
     static grVec2  rotate      ( grVec2 const& vec_a, r32 angle );
