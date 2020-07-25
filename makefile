@@ -10,3 +10,4 @@ main.o: tests/main.cpp
 
 grVec2.o: math/grVec2.cpp math/grVec2.h
 	$(CC) $(CFLAGS) -c math/grVec2.cpp
+

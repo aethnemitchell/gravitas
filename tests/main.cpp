@@ -17,6 +17,8 @@ int main (void) {
     std::cout << v2 << std::endl;
     v2.rotate(M_PI / 2);
     std::cout << v2 << std::endl;
+    std::cout << v1 << std::endl;
+    std::cout << grVec2::distance(v2, v1) << std::endl;
 
     return 0;
 }

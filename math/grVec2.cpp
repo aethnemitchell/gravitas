@@ -111,14 +111,14 @@ grVec2& grVec2::operator/= ( r32 r_operand )
     return *this;
 }
 
-// non-member
+// static
 
-inline r32 length ( grVec2 const& vec )
+r32 grVec2::length ( grVec2 const& vec_a )
 {
-    return std::sqrt( vec.x * vec.x + vec.y * vec.y );
+    return std::sqrt( vec_a.x * vec_a.x + vec_a.y * vec_a.y );
 }
 
-inline r32 distance ( grVec2 const& vec_a, grVec2 const& vec_b )
+r32 grVec2::distance ( grVec2 const& vec_a, grVec2 const& vec_b )
 {
     r32 d_x = vec_b.x - vec_a.x;
     r32 d_y = vec_b.y - vec_a.y;
@@ -126,52 +126,47 @@ inline r32 distance ( grVec2 const& vec_a, grVec2 const& vec_b )
     return std::sqrt( d_x * d_x + d_y * d_y );
 }
 
-inline r32 dot ( grVec2 const& vec_a, grVec2 const& vec_b )
+r32 grVec2::dot ( grVec2 const& vec_a, grVec2 const& vec_b )
 {
     return vec_a.x * vec_b.x + vec_a.y * vec_b.y;
 }
 
-inline r32 angle ( grVec2 const& vec_a )
+r32 grVec2::angle ( grVec2 const& vec_a )
 {
     return std::atan2( vec_a.y, vec_a.x );
 }
 
-inline r32 angle ( grVec2 const& vec_a, grVec2 const& vec_b )
+r32 grVec2::angle ( grVec2 const& vec_a, grVec2 const& vec_b )
 {
     return angle( vec_b - vec_a );
 }
 
-inline r32 angle ( grVec2 const& vec_a, grVec2 const& vec_b, grVec2 const& vec_c )
+r32 grVec2::angle ( grVec2 const& vec_a, grVec2 const& vec_b, grVec2 const& vec_c )
 {
     return angle( vec_a, vec_b ) - angle( vec_b, vec_c );
 }
 
-inline grVec2 unit ( grVec2 const& vec_a ) // const until proven otherwise
+grVec2 grVec2::unit ( grVec2 const& vec_a )
 {
     r32 vec_a_length = length( vec_a );
-
     return grVec2( vec_a.x / vec_a_length, vec_a.y / vec_a_length );
 }
 
-inline grVec2 rotate ( grVec2 const& vec, r32 angle )
+grVec2 grVec2::rotate ( grVec2 const& vec_a, r32 angle )
 {
-    grVec2 out( vec );
+    grVec2 out( vec_a.x, vec_a.y );
     out.rotate( angle );
     return out;
 }
 
-inline grVec2 rot_about ( grVec2 const& vec_a, grVec2 const& vec_b, r32 angle )
+grVec2 grVec2::rot_about ( grVec2 const& vec_a, grVec2 const& vec_b, r32 angle )
 {
-    grVec2 out( vec_a );
-    out -= vec_b;
-    out.rotate( angle );
-    out += vec_b;
-    return out;
+    return vec_b + rotate( vec_a - vec_b, angle );
 }
 
-inline grVec2 perp ( grVec2 const& vec )
+grVec2 grVec2::perp ( grVec2 const& vec_a )
 {
-    return grVec2( -vec.y, vec.x );
+    return grVec2( -vec_a.y, vec_a.x );
 }
 
 
