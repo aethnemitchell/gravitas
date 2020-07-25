@@ -22,11 +22,13 @@ struct grVec2
     grVec2 ( );
     grVec2 ( r32 x_, r32 y_ ); 
     grVec2 ( r32 x_, r32 y_, r32 len ); // vector in direction=[x,y] and of length=len
+    grVec2 ( grVec2 const& vec_ );
 
     // methods
 
     void zero   ( );
     void assign ( r32 x_, r32 y_ );
+    void rotate ( r32 angle );
 
     // operators
 
@@ -49,8 +51,14 @@ struct grVec2
 r32     length      ( grVec2 const& vec );
 r32     distance    ( grVec2 const& vec_a, grVec2 const& vec_b );
 r32     dot         ( grVec2 const& vec_a, grVec2 const& vec_b );
+r32     angle       ( grVec2 const& vec_a ); // from +x
+r32     angle       ( grVec2 const& vec_a, grVec2 const& vec_b );
+r32     angle       ( grVec2 const& vec_a, grVec2 const& vec_b, grVec2 const& vec_c );
 
 grVec2  unit        ( grVec2 const& vec );
+grVec2  rotate      ( grVec2 const& vec, r32 angle );
+grVec2  rot_about   ( grVec2 const& vec_a, grVec2 const& vec_b, r32 angle );
+grVec2  perp        ( grVec2 const& vec );
 
 std::ostream & operator<<(std::ostream& out, grVec2 const& vec);
 

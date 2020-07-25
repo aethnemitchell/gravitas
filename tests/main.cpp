@@ -11,6 +11,12 @@ int main (void) {
     v2 += v1;
 
     std::cout << v2 << std::endl;
+    v2.rotate(M_PI / 2);
+    std::cout << v2 << std::endl;
+    v2.rotate(M_PI / 2);
+    std::cout << v2 << std::endl;
+    v2.rotate(M_PI / 2);
+    std::cout << v2 << std::endl;
 
     return 0;
 }
