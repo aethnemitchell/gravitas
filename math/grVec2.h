@@ -7,15 +7,8 @@
 
 struct grVec2
 {
-    union 
-    {
-		r32 vec[2];
-		struct
-		{
-            r32 x;
-            r32 y;
-		};
-	};
+    r32 x;
+    r32 y;
 
     // constructors
 
@@ -32,9 +25,6 @@ struct grVec2
     // operators
 
     grVec2  operator-       ( void ) const;
-
-    r32& operator[]      ( int i );
-    r32  operator[]      ( int i ) const;
 
     grVec2 const operator+ ( grVec2 const& r_operand ) const;
     grVec2 const operator- ( grVec2 const& r_operand ) const;

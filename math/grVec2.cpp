@@ -47,18 +47,6 @@ grVec2 grVec2::operator- ( void ) const
     return grVec2( -x, -y );
 }
 
-
-r32& grVec2::operator[] ( int i )
-{
-    return vec[i];
-}
-
-r32 grVec2::operator[] ( int i ) const
-{
-    return vec[i];
-}
-
-
 grVec2 const grVec2::operator+ ( grVec2 const& r_operand ) const
 {
     return grVec2( x + r_operand.x, y + r_operand.y );
