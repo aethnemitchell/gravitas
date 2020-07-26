@@ -38,6 +38,7 @@ std::vector<grVec2> grCvPoly2::cv_hull_from_points ( std::vector<grVec2> const& 
     while (true)
     {
         size_t q = (l + 1) % vertices_.size();
+        
         for (size_t i = 0; i < vertices_.size(); i++ )
         {
             if (i == l) continue;
@@ -45,8 +46,8 @@ std::vector<grVec2> grCvPoly2::cv_hull_from_points ( std::vector<grVec2> const& 
             int dir = grVec2::orientation( vertices_[l], vertices_[i], vertices_[q] );
             
             if ( dir > 0 ) q = i;
-
         }
+        
         l = q;
 
         if ( q == leftmost_index ) break;
