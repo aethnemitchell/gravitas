@@ -5,13 +5,16 @@
 #include <algorithm>
 #include <vector>
 #include <stdexcept>
+#include <utility>
 
 #include "grVec2.h"
 
 struct grCvPoly2
 {
-    std::vector<grVec2>     vertices;
-    grVec2                  centroid;
+    std::vector<grVec2>         vertices;
+    grVec2                      centroid;
+    std::pair<grVec2, grVec2>   aabb;
+
     r32                     area;
 
     grCvPoly2 ( std::vector<grVec2> const& vertices_ );

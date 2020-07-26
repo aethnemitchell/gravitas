@@ -14,6 +14,25 @@ grCvPoly2::grCvPoly2 ( std::vector<grVec2> const& vertices_ )
 
     vertices = cv_hull_from_points ( vertices_ );
     centroid = compute_centroid ( vertices );
+
+    // aabb
+    r32 t = vertices[0].y;
+    r32 b = vertices[0].y;
+    r32 l = vertices[0].x;
+    r32 r = vertices[0].x;
+
+    for (auto v : vertices)
+    {
+        if ( v.y < t ) t = v.y;
+        if ( v.y > b ) b = v.y;
+        if ( v.x < l ) l = v.x;
+        if ( v.x > r ) r = v.x;
+    }
+
+    grVec2 top_lef( l, t ); // min min 
+    grVec2 bot_rig( r, b ); // max max 
+
+    aabb = std::make_pair( top_lef, bot_rig );
 }
 
 // static

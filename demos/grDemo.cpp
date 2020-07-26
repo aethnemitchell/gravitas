@@ -17,26 +17,22 @@ int main()
     srand(current_time);
     sf::RenderWindow window(sf::VideoMode(800, 600), "grDemo");
 
-    /*
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
-    */
 
     std::vector<grVec2> points;
     std::vector<sf::CircleShape> sf_circs;
-    for (size_t i=0; i<10; i++)
+    for (size_t i=0; i<6; i++)
     {
-        points.push_back( grVec2( random(200.0, 600.0), random(100.0, 500.0) ) );
-        sf::CircleShape new_circ(4.0f);
-        new_circ.setPosition( points.back().x - 2.0, points.back().y - 2.0 );
+        points.push_back( grVec2( random(150.0, 200.0), random(340.0, 400.0) ) );
+        sf::CircleShape new_circ(2.0f);
+        new_circ.setPosition( points.back().x - 1.0, points.back().y - 1.0 );
         new_circ.setFillColor(sf::Color::Red);
         sf_circs.push_back(new_circ);
     }
 
     auto hull = grCvPoly2( points );
     
-    sf::CircleShape centroid_circ(8.0f);
-    centroid_circ.setPosition( hull.centroid.x - 4.0, hull.centroid.y - 4.0 );
+    sf::CircleShape centroid_circ(4.0f);
+    centroid_circ.setPosition( hull.centroid.x - 2.0, hull.centroid.y - 2.0 );
     centroid_circ.setFillColor(sf::Color::Blue);
 
 
@@ -52,6 +48,15 @@ int main()
     
     window.draw(polygon);
 
+    // AABBs
+    sf::RectangleShape sf_aabb;
+    sf_aabb.setPosition(hull.aabb.first.x, hull.aabb.first.y);
+    sf_aabb.setSize(sf::Vector2f(hull.aabb.second.x-hull.aabb.first.x, hull.aabb.second.y-hull.aabb.first.y));
+    sf_aabb.setOutlineColor(sf::Color::White);
+    sf_aabb.setOutlineThickness(1);
+    sf_aabb.setFillColor(sf::Color(0,0,0,0));
+
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -63,6 +68,7 @@ int main()
 
         window.clear();
         window.draw(polygon);
+        window.draw(sf_aabb);
         for (auto c : sf_circs)
             window.draw(c);
         window.draw(centroid_circ);
