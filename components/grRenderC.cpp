@@ -36,7 +36,7 @@ grRenderC::grRenderC ( grCvPoly2 const& geometry )
     sf_centre->setFillColor( sf::Color::Blue );
 
     // verts
-    r32 vert_size = 2.0;
+    r32 vert_size = 1.0;
 
     for ( size_t i = 0; i < geometry.vertices.size(); i++ )
     {
