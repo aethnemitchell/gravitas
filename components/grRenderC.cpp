@@ -2,12 +2,12 @@
 
 #include "grRenderC.h"
 
-grRenderC::grRenderC ( grCvPoly2 const& geometry )
-    : entity_geometry ( geometry )
+grRenderC::grRenderC ( grCvPoly2 const& geometry_ )
+    : geometry ( geometry_ )
 {
     // polygon
     sf_poly = std::unique_ptr<sf::ConvexShape>( new sf::ConvexShape );
-    sf_poly->setPointCount( entity_geometry.vertices.size() );
+    sf_poly->setPointCount( geometry.vertices.size() );
 
     for ( size_t i = 0; i < geometry.vertices.size(); i++ )
     {
@@ -28,16 +28,12 @@ grRenderC::grRenderC ( grCvPoly2 const& geometry )
     sf_aabb->setFillColor( sf::Color( 0, 0, 0, 0 ) );
 
     // centroid
-    r32 centroid_size = 4.0;
-
     sf_centre = std::unique_ptr<sf::CircleShape>( new sf::CircleShape( centroid_size ) );
     sf_centre->setPosition( geometry.centroid.x - centroid_size / 2,
                             geometry.centroid.y - centroid_size / 2 );
     sf_centre->setFillColor( sf::Color::Blue );
 
     // verts
-    r32 vert_size = 1.0;
-
     for ( size_t i = 0; i < geometry.vertices.size(); i++ )
     {
         sf::CircleShape vert_circ( vert_size );
@@ -50,7 +46,19 @@ grRenderC::grRenderC ( grCvPoly2 const& geometry )
 
 void grRenderC::update ( r32 dt )
 {
-    // @todo grRenderC::update
+    sf_poly->setPosition( geometry.pos.x, geometry.pos.y );
+
+    sf_aabb->setPosition( geometry.pos.x + geometry.aabb.first.x,
+                          geometry.pos.y + geometry.aabb.first.y );
+
+    sf_centre->setPosition( geometry.pos.x + geometry.centroid.x - centroid_size / 2,
+                            geometry.pos.y + geometry.centroid.y - centroid_size / 2 );
+
+    for ( size_t i = 0; i < sf_verts.size(); i++ )
+    {
+        sf_verts[i].setPosition( geometry.pos.x + geometry.vertices[i].x - vert_size / 2,
+                                 geometry.pos.y + geometry.vertices[i].y - vert_size / 2 );
+    }
 }
 
 void grRenderC::draw ( sf::RenderWindow & window ) const

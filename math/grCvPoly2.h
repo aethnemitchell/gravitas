@@ -20,6 +20,7 @@ struct grCvPoly2
     r32                     area;
 
     grCvPoly2 ( std::vector<grVec2> const& vertices_ );
+    void update_aabb ( );
 
 private:
     static std::vector<grVec2> cv_hull_from_points ( std::vector<grVec2> const& vertices_ );

@@ -7,7 +7,7 @@
 
 class grColliderC
 {
-    grCvPoly2 geometry;
+    grCvPoly2 & geometry;
 
 public:
     grVec2  vel;

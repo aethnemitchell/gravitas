@@ -14,7 +14,8 @@ grColliderC::grColliderC ( grCvPoly2 & geometry_, r32 mass_ )
     , inertia ( 0.0 )
 { }
 
-void grColliderC::update ( r32 dt )
+void grColliderC::update ( r32 dt ) // @inprog
 {
-    // wew
+    geometry.pos = geometry.pos + vel * dt;
+    geometry.update_aabb();
 }
