@@ -3,6 +3,7 @@
 #define GRRENDERC_H
 
 #include <memory>
+#include <SFML/Graphics.hpp>
 #include "../math/grCvPoly2.h"
 
 class grRenderC
@@ -14,9 +15,9 @@ class grRenderC
     std::vector<sf::CircleShape>            sf_verts;
 
 public:
-    grRenderC ( grCvPoly const& geometry );
-    update (r32 dt );
-    draw ( sf::RenderWindow& window ) const;
+    grRenderC ( grCvPoly2 const& geometry );
+    void update ( r32 dt );
+    void draw ( sf::RenderWindow& window ) const;
 };
 
 #endif

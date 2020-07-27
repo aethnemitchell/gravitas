@@ -7,6 +7,8 @@
 
 grCvPoly2::grCvPoly2 ( std::vector<grVec2> const& vertices_ )
 {
+    rot = 0.0;
+
     if ( vertices_.size() < 3 )
     {
         throw std::invalid_argument( "Empty or degenerate vertex list" );

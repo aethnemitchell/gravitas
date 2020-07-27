@@ -14,6 +14,8 @@ struct grCvPoly2
     std::vector<grVec2>         vertices;
     grVec2                      centroid;
     std::pair<grVec2, grVec2>   aabb;
+    grVec2                      pos;
+    r32                         rot;
 
     r32                     area;
 

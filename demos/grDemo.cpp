@@ -3,6 +3,8 @@
 #include <SFML/System.hpp>
 #include "../math/grVec2.h"
 #include "../math/grCvPoly2.h"
+#include "../components/grEntity.h"
+
 
 r32 random( r32 lower, r32 upper )
 {
@@ -30,31 +32,8 @@ int main()
     }
 
     auto hull = grCvPoly2( points );
-    
-    sf::CircleShape centroid_circ(4.0f);
-    centroid_circ.setPosition( hull.centroid.x - 2.0, hull.centroid.y - 2.0 );
-    centroid_circ.setFillColor(sf::Color::Blue);
 
-
-    sf::ConvexShape polygon;
-    polygon.setPointCount(hull.vertices.size());
-    for (size_t i=0; i<hull.vertices.size(); i++)
-    {
-        polygon.setPoint(i, sf::Vector2f(hull.vertices[i].x, hull.vertices[i].y));
-    }
-
-    polygon.setFillColor(sf::Color(80, 80, 80));
-    polygon.setPosition(0, 0);
-    
-    window.draw(polygon);
-
-    // AABBs
-    sf::RectangleShape sf_aabb;
-    sf_aabb.setPosition(hull.aabb.first.x, hull.aabb.first.y);
-    sf_aabb.setSize(sf::Vector2f(hull.aabb.second.x-hull.aabb.first.x, hull.aabb.second.y-hull.aabb.first.y));
-    sf_aabb.setOutlineColor(sf::Color::White);
-    sf_aabb.setOutlineThickness(1);
-    sf_aabb.setFillColor(sf::Color(0,0,0,0));
+    grEntity ent(hull);
 
 
     while (window.isOpen())
@@ -67,11 +46,7 @@ int main()
         }
 
         window.clear();
-        window.draw(polygon);
-        window.draw(sf_aabb);
-        for (auto c : sf_circs)
-            window.draw(c);
-        window.draw(centroid_circ);
+        ent.render_c->draw(window);
         window.display();
     }
 
